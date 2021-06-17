@@ -1,0 +1,40 @@
+
+gbtoolsid - Game Boy Toolchain ID
+=================================
+
+This is the web version of a console tool that does the same thing:
+https://github.com/bbbbbr/gbtoolsid
+
+A self contained, local-only web app for identifying tools used to build Game Boy ROMs
+
+It attempts to identify the toolchain and engine through binary fingerprints:
+- GBDK 2.x and GBDK-2020
+- ZGB
+- GBStudio
+
+
+Some example output:
+```
+File: deadeus.gb
+Tools: GBDK, Version: 2.x - 2020-3.2.0
+Engine: GBStudio, Version: 1.0.0 - 1.2.1
+
+
+File: POWA! DEMO.gbc
+Tools: GBDK, Version: 2.x - 2020-3.2.0
+Engine: ZGB, Version: 2020.1 - 2021.0
+
+
+File: IndestructoTankGB.gb
+Tools: GBDK, Version: 2020.4.0.2
+
+
+File: Super_JetPak_DX_DMG-SJPD-UKV.gbc
+Tools: GBDK, Version: 2.x - 2020-3.2.0
+
+
+File: Tuff.gb
+Tools: <unknown>
+```
+
+
