@@ -2,6 +2,10 @@
 gbtoolsid - Game Boy Toolchain ID
 =================================
 
+To use it online go here:
+https://bbbbbr.github.io/gbtoolsid_web/
+
+
 This is the web version of a console tool that does the same thing:
 https://github.com/bbbbbr/gbtoolsid
 
