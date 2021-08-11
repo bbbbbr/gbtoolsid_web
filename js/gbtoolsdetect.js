@@ -94,7 +94,7 @@ function renderOutput(filename) {
         str_result += '"' + filename + '",';
         str_result += '"' + g_tools_name + '","' + g_tools_version + '",';
         str_result += '"' + g_engine_name + '","' + g_engine_version + '"\n';
-    } 
+    }
     else { // OUTPUT_DEFAULT
 
         str_result += "File: " + filename + "\n";

@@ -28,6 +28,9 @@
 // 0x80
     const sig_gbdk_0x80_at = 0x0080;
     const sig_gbdk_0x80_GBDK_4_0_0 = new Uint8Array([0xC5, 0xD5, 0x2A, 0xB6, 0x28, 0x09, 0xE5, 0x3A, 0x6E, 0x67, 0xE7, 0xE1, 0x23, 0x18, 0xF3, 0xD1, 0xC1, 0xE1, 0xF0, 0x41, 0xE6, 0x02, 0x20, 0xFA, 0xF1, 0xD9]);
+// 0x100
+    const sig_gbdk_0x100_at = 0x0100;
+    const sig_gbdk_0x100_GBDK_4_0_4 = new Uint8Array([0x18, 0x51]);
 // 0x150
     // These should only be used when stacked on other entries
     const sig_gbdk_0x150 = new Uint8Array([0xF3, 0x57, 0xAF, 0x31]);
@@ -82,6 +85,13 @@ function checkGBDK(u8RomBuffer) {
             // GBDK-2020 4.0.3 and later
             if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x153, sig_gbdk_0x153_GBDK_2020_403_plus_at)) {
                 setTools(str_gbdk, "2020.4.0.3+");
+
+                // GBDK-2020 4.0.4 and later
+                if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x100_GBDK_4_0_4, sig_gbdk_0x100_at)) {
+                    setTools(str_gbdk, "2020.4.0.4+");
+                    return true;
+                }
+
                 return true;
             }
         }
