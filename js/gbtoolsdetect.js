@@ -26,6 +26,9 @@ function gbToolsDetect(u8RomBuffer, filename) { // , strict_mode) {
         result_gbstudio = checkGBStudio(u8RomBuffer);
     }
 
+    check_music(u8RomBuffer);
+    check_soundfx(u8RomBuffer);
+
     prependInfoText(renderOutput(filename));
 }
 
