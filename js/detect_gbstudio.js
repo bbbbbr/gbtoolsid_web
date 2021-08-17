@@ -65,12 +65,6 @@ function checkGBStudio(u8RomBuffer) {
     }
 
     // GBStudio 3.0.0 alpha +
-    if (findPattern_u8(u8RomBuffer, sig_gbs_math_c_sinetable_3_0_0_alpha1_plus)) {
-        entry_add_with_version(entry, "3.0.0 alpha 1+");
-        return true;
-    }
-
-    // GBStudio 3.0.0 alpha +
     if (findPattern_u8(u8RomBuffer, sig_gbs_musicmanager_c_FX_ADDR_LO_3_0_0_alpha1_plus) &&
         findPattern_u8(u8RomBuffer, sig_gbs_math_c_sinetable_3_0_0_alpha1_plus)) {
         entry_add_with_version(entry, "3.0.0 alpha 1+");
