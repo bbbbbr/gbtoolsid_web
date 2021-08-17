@@ -11,7 +11,7 @@
     const sig_zgb_2020_0_pushbank = new Uint8Array([0x34, 0x4E, 0x23, 0x46, 0x02, 0x01, 0x00, 0x20, 0x02]);
     const sig_zgb_2020_0_popbank = new Uint8Array([0x35, 0x4E, 0x23, 0x46, 0x0A, 0x01, 0x00, 0x20, 0x02]);
     const sig_zgb_2020_1_to_2021_0_pushbank = new Uint8Array([0x34, 0x4E, 0x23, 0x46, 0xFA, 0x90, 0xFF, 0x02, 0xF8, 0x02, 0x7E, 0xEA, 0x90, 0xFF, 0xEA, 0x00, 0x20]);
-    const sig_zgb_2020_1_to_2021_0_popbank = new Uint8Array([0x4E, 0x23, 0x46, 0x0A, 0xEA, 0x90, 0xFF, 0xEA, 0x00, 0x20, 0x2B, 0x35]);   
+    const sig_zgb_2020_1_to_2021_0_popbank = new Uint8Array([0x4E, 0x23, 0x46, 0x0A, 0xEA, 0x90, 0xFF, 0xEA, 0x00, 0x20, 0x2B, 0x35]);
 
 
 // TODO: early ZGB titles (2016 - 2017) aren't reliably detected. Consider dropping the sound table requirement.
@@ -22,15 +22,13 @@
 //
 function checkZGB(u8RomBuffer) {
 
-    const str_zgb = "ZGB";
-
-    // appendInfoText("checkZGB\n");
+    var entry = {type: TYPE_ENGINE, name: "ZGB", version: ""};
 
     // Require sound const pattern, as starting filter
     if (findPattern_u8(u8RomBuffer, sig_zgb_sound)) {
-        
+
         if (findPattern_u8(u8RomBuffer, sig_zgb_2017)) {
-            setEngine(str_zgb, "2016-2017");
+            entry_add_with_version(entry, "2016-2017");
             return true;
         }
 
@@ -38,14 +36,14 @@ function checkZGB(u8RomBuffer) {
         if ((findPattern_u8(u8RomBuffer, sig_zgb_2020_0_pushbank)) &&
             (findPattern_u8(u8RomBuffer, sig_zgb_2020_0_popbank))) {
 
-            setEngine(str_zgb, "2020.0");
+            entry_add_with_version(entry, "2020.0");
             return true;
         }
 
-        // ZGB 2020.1        
+        // ZGB 2020.1
         if ((findPattern_u8(u8RomBuffer, sig_zgb_2020_1_to_2021_0_pushbank)) &&
             (findPattern_u8(u8RomBuffer, sig_zgb_2020_1_to_2021_0_popbank))) {
-            setEngine(str_zgb, "2020.1 - 2021.0");
+            entry_add_with_version(entry, "2020.1 - 2021.0");
             return true;
         }
     }

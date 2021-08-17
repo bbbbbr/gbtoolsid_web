@@ -7,7 +7,7 @@
 // const $1 = new Uint8Array([$2]);
 
 // ==== GBDK ====
-// 
+//
 // These are almost all in crt0.s
 //
 // Bitmap defines
@@ -47,20 +47,20 @@
 //
 function checkGBDK(u8RomBuffer) {
 
-    const str_gbdk = "GBDK";
+    var entry = {type: TYPE_TOOLS, name: "GBDK", version: ""};
 
     // GBDK-2020 4.0.0
     if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x80_GBDK_4_0_0, sig_gbdk_0x80_at)) {
         // GBDK-2020 4.0.0 (Additional test to strengthen match)
         if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x20_GBDK_2020_400, sig_gbdk_0x20_at)) {
-            setTools(str_gbdk, "2020.4.0.0");
+            entry_add_with_version(entry, "2020.4.0.0");
             return true;
         }
     }
 
     // GBDK 2.x - GBDK-2020 3.2.0
     if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_bmp, sig_gbdk_bmp_2x_to_2020_320_at)) {
-        setTools(str_gbdk, "2.x - 2020-3.2.0");
+        entry_add_with_version(entry, "2.x - 2020-3.2.0");
         return true;
     }
 
@@ -72,26 +72,26 @@ function checkGBDK(u8RomBuffer) {
 
             // GBDK Part 4 (0x150) GBDK-2020 4.0.1
             if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x150, sig_gbdk_0x150_GBDK_2x_to_2020_401_at)) {
-                setTools(str_gbdk, "2020.4.0.1");
+                entry_add_with_version(entry, "2020.4.0.1");
                 return true;
             }
 
             //  GBDK-2020 4.0.2
             if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x150, sig_gbdk_0x150_GBDK_2020_401_to_402_at)) {
-                setTools(str_gbdk, "2020.4.0.2");
+                entry_add_with_version(entry, "2020.4.0.2");
                 return true;
             }
 
             // GBDK-2020 4.0.3 and later
             if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x153, sig_gbdk_0x153_GBDK_2020_403_plus_at)) {
-                setTools(str_gbdk, "2020.4.0.3+");
 
                 // GBDK-2020 4.0.4 and later
                 if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x100_GBDK_4_0_4, sig_gbdk_0x100_at)) {
-                    setTools(str_gbdk, "2020.4.0.4+");
+                    entry_add_with_version(entry, "2020.4.0.4+");
                     return true;
                 }
 
+                entry_add_with_version(entry, "2020.4.0.3+");
                 return true;
             }
         }

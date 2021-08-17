@@ -4,20 +4,20 @@
 
 
 
-// Load a file into a uint8 binary array 
+// Load a file into a uint8 binary array
 // and  pass it in for processing
 function loadFile(fileToRead) {
 
     // console.log(fileToRead);
 
     if (window.File && window.FileReader && window.FileList && window.Blob) {
-        let fileReader = new FileReader(); 
+        let fileReader = new FileReader();
 
-        fileReader.onload = function (e) { 
+        fileReader.onload = function (e) {
                  let fileBuffer = e.target.result;
                  let uint8View = new Uint8Array(fileBuffer)
                  gbToolsDetect(uint8View, fileToRead.name);
-             } 
+             }
 
         fileReader.readAsArrayBuffer(fileToRead);
     }
@@ -27,7 +27,7 @@ function loadFile(fileToRead) {
 function dropFileHandler(ev) {
 
     // Clear previous output
-    // setInfoText("\n");  
+    // setInfoText("\n");
     prependInfoText("---------------------------------\n");
 
     // Prevent default behavior (Prevent file from being opened)

@@ -48,3 +48,52 @@ function removeClass(ele,cls) {
   }
 }
 
+
+
+
+
+function render_entry_default(name_field, tool_type) {
+
+    let iter = 0;
+    let str_result = "";
+    let entry = entry_get_first_of_type(tool_type);
+
+    if (entry !== null) {
+        // This mode shows multiple entries for a given tool type if present
+        while (entry !== null) {
+            str_result += name_field + ": " + entry.name;
+
+            // Don't print empty versions
+            if ((entry.version.length) > 0)
+                str_result += ", Version: " + entry.version;
+
+            str_result += "\n";
+            entry = entry_get_next_of_type(tool_type);
+            iter++;
+        }
+    }
+    else
+        if (tool_type == TYPE_TOOLS) // Only display unknown value for main tools type
+            str_result += name_field + ": <unknown>\n";
+
+    return str_result;
+}
+
+
+
+function renderOutput(filename) {
+
+    let str_result = "";
+
+    // OUTPUT_DEFAULT
+        str_result += "File: " + filename + "\n";
+
+        str_result += render_entry_default("Tools", TYPE_TOOLS);
+        str_result += render_entry_default("Engine", TYPE_ENGINE);
+        str_result += render_entry_default("Music", TYPE_MUSIC);
+        str_result += render_entry_default("SoundFX", TYPE_SOUNDFX);
+
+        str_result += "\n";
+
+    return str_result;
+}
