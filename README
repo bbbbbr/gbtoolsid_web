@@ -12,9 +12,21 @@ https://github.com/bbbbbr/gbtoolsid
 A self contained, local-only web app for identifying tools used to build Game Boy ROMs
 
 It attempts to identify the toolchain and engine through binary fingerprints:
+
+Toolchains:
 - GBDK 2.x and GBDK-2020
+- Turbo Rascal Syntax Error
+
+Game Engines:
 - ZGB
 - GBStudio
+
+Audio Drivers:
+- Carillon Player, DevSound, Freaq, GHX, GB Sound System, GBT Player, hUGETracker, Lemon, LSDJ, MPlay, Music Box Black Box, MusyX, Trackerboy, Visual Impact's
+
+Sound FX Drivers:
+- FX Hammer
+
 
 
 Some example output:
@@ -22,23 +34,35 @@ Some example output:
 File: deadeus.gb
 Tools: GBDK, Version: 2.x - 2020-3.2.0
 Engine: GBStudio, Version: 1.0.0 - 1.2.1
+Music: GBT Player
 
 
 File: POWA! DEMO.gbc
 Tools: GBDK, Version: 2.x - 2020-3.2.0
 Engine: ZGB, Version: 2020.1 - 2021.0
+Music: GBT Player
 
 
 File: IndestructoTankGB.gb
 Tools: GBDK, Version: 2020.4.0.2
+Music: GBT Player
 
 
 File: Super_JetPak_DX_DMG-SJPD-UKV.gbc
 Tools: GBDK, Version: 2.x - 2020-3.2.0
+Music: GHX
 
 
 File: Tuff.gb
 Tools: <unknown>
+
+
+File: Last Crown Warriors (Demo) 1.1.1.gb
+Tools: <unknown>
+Music: Carillon Player
+SoundFX: FX Hammer
+
 ```
+
 
 
