@@ -19,11 +19,21 @@ function check_soundfx(u8RomBuffer) {
         const sig_fxhammer_info_1 = utf8Encoder.encode("FX HAMMER");
         const sig_fxhammer_info_2 = utf8Encoder.encode("FX@HAMMER");
 
+    // ==== CBT-FX
+    // Records can be at any location
+        const sig_cbtfx_info = utf8Encoder.encode("CBT-FX BY COFFEEBAT 2021");
 
-    let entry = {type: TYPE_SOUNDFX, name: "FX Hammer", version: ""};
+
+    let entry;
 
     // FXHammer music 1.0
+    entry = {type: TYPE_SOUNDFX, name: "FX Hammer", version: ""};
     if (findPattern_u8(u8RomBuffer, sig_fxhammer_info_1) ||
         findPattern_u8(u8RomBuffer, sig_fxhammer_info_2))
+        entry_add(entry);
+
+    // CBT-FX : https://github.com/datguywitha3ds/CBT-FX/tree/main
+    entry = {type: TYPE_SOUNDFX, name: "CBT-FX", version: ""};
+    if (findPattern_u8(u8RomBuffer, sig_cbtfx_info))
         entry_add(entry);
 }
