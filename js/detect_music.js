@@ -15,7 +15,8 @@ function check_music(u8RomBuffer) {
     const sig_str_ghx_audio = utf8Encoder.encode("GHX Audio Engine");
     const sig_str_ghx_sound = utf8Encoder.encode("GHX Sound Engine");
 
-    const sig_str_devsound = utf8Encoder.encode("DevSound GB music player");
+    const sig_str_devsound_standard = utf8Encoder.encode("DevSound GB music player");
+    const sig_str_devsound_lite = utf8Encoder.encode("DevSound Lite");
 
     const sig_str_gbmusicplayer_audio = utf8Encoder.encode("GB Music Player Copyright VISUAL IMPACT BVBA");
 
@@ -36,8 +37,16 @@ function check_music(u8RomBuffer) {
     const sig_str_gbsoundsystem_1 = utf8Encoder.encode("SoundSystem");
     const sig_str_gbsoundsystem_2 = utf8Encoder.encode("Hockenhull");
 
-    // _load_note_data -> lookup_note : https://github.com/untoxa/hUGEBuild/blame/master/hUGEDriver.asm#L332
-    const sig_hugetracker_load_note_data = new Uint8Array([0x67, 0x84, 0x84, 0xC6, 0x02, 0x26, 0x00, 0x6F, 0x09, 0x3A, 0x4F, 0x3A, 0x47, 0x7E, 0xC9]);
+    // hUGEDriver
+        // _load_note_data -> lookup_note : https://github.com/untoxa/hUGEBuild/blame/master/hUGEDriver.asm#L332
+        // const sig_hugetracker_load_note_data = new Uint8Array([0x67, 0x84, 0x84, 0xC6, 0x02, 0x26, 0x00, 0x6F, 0x09, 0x3A, 0x4F, 0x3A, 0x47, 0x7E, 0xC9]);
+        // https://github.com/SuperDisk/hUGEDriver/blob/e996cfab0b16bea6e394f269e89a5729d8421bb2/hUGEDriver.asm#L295 -> 308
+        // const uint8_t sig_hugetracker_load_note_data_v2[] = {0x67, 0x84, 0x84, 0x26, 0x00, 0x6F, 0x09, 0x2A, 0x46, 0x23, 0x4E, 0xC9}
+    // https://github.com/SuperDisk/hUGEDriver/blame/3e67d4ea8a27f5317fd5be73a534c543614130ef/hUGEDriver.asm#L760 -> 772
+    const sig_hugetracker_fx_vol_slide_base_v1 = new Uint8Array([0x79, 0xE6, 0x0F, 0x57, 0x79, 0xE6, 0xF0, 0x5F, 0xCB, 0x33   ,0x7E, 0xE6, 0xF0, 0xCB, 0x37, 0x92]);
+    // https://github.com/SuperDisk/hUGEDriver/blob/e996cfab0b16bea6e394f269e89a5729d8421bb2/hUGEDriver.asm#L736 -> 743
+    const sig_hugetracker_fx_vol_slide_base_v2 = new Uint8Array([0x79, 0xE6, 0x0F, 0x57, 0x79, 0xE6, 0xF0, 0x5F, 0xCB, 0x33   ,0x78, 0x87, 0x87, 0x80, 0xC6, 0x12, 0x4F, 0xF2, 0xE6, 0xF0, 0xCB, 0x37, 0x92]);
+
 
     // engine.asm, tbe_thumbprint::
     const sig_tbengine_noisetable = utf8Encoder.encode("tbengine - sound driver by stoneface");
@@ -99,9 +108,14 @@ function check_music(u8RomBuffer) {
         findPattern_u8(u8RomBuffer, sig_str_ghx_sound))
         entry_add(entry);
 
-    entry = {type: TYPE_MUSIC, name: "DevSound", version: ""};
-    if (findPattern_u8(u8RomBuffer, sig_str_devsound))
+    entry = {type: TYPE_MUSIC, name: "DevSound", version: "Standard"};
+    if (findPattern_u8(u8RomBuffer, sig_str_devsound_standard))
         entry_add(entry);
+    else {
+        entry = {type: TYPE_MUSIC, name: "DevSound", version: "Lite"};
+        if (findPattern_u8(u8RomBuffer,sig_str_devsound_lite))
+            entry_add(entry);
+    }
 
     entry = {type: TYPE_MUSIC, name: "Visual Impact", version: ""};
     if (findPattern_u8(u8RomBuffer, sig_str_gbmusicplayer_audio))
@@ -124,7 +138,9 @@ function check_music(u8RomBuffer) {
         entry_add(entry);
 
     entry = {type: TYPE_MUSIC, name: "hUGETracker", version: ""};
-    if (findPattern_u8(u8RomBuffer, sig_hugetracker_load_note_data, sig_hugetracker_load_note_data))
+    if (findPattern_u8(u8RomBuffer, sig_hugetracker_fx_vol_slide_base_v1))
+        entry_add(entry);
+    else if (findPattern_u8(u8RomBuffer, sig_hugetracker_fx_vol_slide_base_v2))
         entry_add(entry);
 
     entry = {type: TYPE_MUSIC, name: "Trackerboy engine", version: ""};

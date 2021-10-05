@@ -37,8 +37,11 @@
     const sig_gbdk_0x150_GBDK_2x_to_2020_401_at   = 0x0150;
     const sig_gbdk_0x150_GBDK_2020_401_to_402_at  = 0x0153;
     // 0x153
-    const sig_gbdk_0x153 = new Uint8Array([0xF3, 0x57, 0x31]);
+    const sig_gbdk_0x153_GBDK_2020_403_plus = new Uint8Array([0xF3, 0x57, 0x31]);
     const sig_gbdk_0x153_GBDK_2020_403_plus_at = 0x0153;
+    // 0x157
+    const sig_gbdk_0x157_GBDK_2020_405_plus = new Uint8Array([0xF3, 0x57, 0x58, 0x31]);
+    const sig_gbdk_0x157_GBDK_2020_405_plus_at = 0x0157;
 
 
 // Check for GBDK 2.x - GBDK-2020
@@ -82,20 +85,26 @@ function checkGBDK(u8RomBuffer) {
                 return true;
             }
 
-            // GBDK-2020 4.0.3 and later
-            if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x153, sig_gbdk_0x153_GBDK_2020_403_plus_at)) {
+            // GBDK-2020 4.0.3 - 4.0.4
+            if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x153_GBDK_2020_403_plus, sig_gbdk_0x153_GBDK_2020_403_plus_at)) {
 
                 // GBDK-2020 4.0.4 and later
                 if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x100_GBDK_4_0_4, sig_gbdk_0x100_at)) {
-                    entry_add_with_version(entry, "2020.4.0.4+");
+                    entry_add_with_version(entry, "2020.4.0.4");
                     return true;
                 }
 
                 entry_add_with_version(entry, "2020.4.0.3+");
                 return true;
             }
-        }
-    }
+
+            // GBDK-2020 4.0.5
+            if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x157_GBDK_2020_405_plus, sig_gbdk_0x157_GBDK_2020_405_plus_at)) {
+                entry_add_with_version(entry, "2020.4.0.5+");
+                return true;
+            }
+        } // end GBDK-2020 4.0.1 and later extra match
+    } // end GBDK-2020 4.0.1 and later
 
     return false;
 }
