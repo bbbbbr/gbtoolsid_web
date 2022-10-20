@@ -31,7 +31,7 @@ function check_music(u8RomBuffer) {
     const sig_str_lsdj_2 = utf8Encoder.encode("LITTLE SOUND DJ");
 
     // GBSoundSystem only (not 100% sure) : soundsys.asm : SSFP_multi_sfx
-    const sig_gbsoundsystem_blitterobj_SSFP_multi_sfx = new Uint8Array([0x57, 0x78, 0x06, 0x00, 0x87, 0xCB, 0x10, 0x87, 0xCB, 0x10, 0x87, 0xCB, 0x10, 0x83, 0x6F, 0x3E, 0x00, 0x8A, 0x80, 0x67]);
+    const sig_gbsoundsystem_modern_SSFP_multi_sfx = new Uint8Array([0x57, 0x78, 0x06, 0x00, 0x87, 0xCB, 0x10, 0x87, 0xCB, 0x10, 0x87, 0xCB, 0x10, 0x83, 0x6F, 0x3E, 0x00, 0x8A, 0x80, 0x67]);
     // Paragon5 only : sndsys_c.asm : MultiSFXLoop
     const sig_gbsoundsystem_MultiSFXLoop = new Uint8Array([0x2A, 0x4E, 0x06, 0x00, 0x87, 0xCB, 0x10, 0x87, 0xCB, 0x10, 0x87, 0xCB, 0x10]);
     const sig_str_gbsoundsystem_1 = utf8Encoder.encode("SoundSystem");
@@ -171,8 +171,8 @@ function check_music(u8RomBuffer) {
     else if (findPattern_u8(u8RomBuffer, sig_mplay1))
         entry_add_with_version(entry, "1");
 
-    entry = {type: TYPE_MUSIC, name: "GBSoundSystem", version: "BlitterObject"};
-    if (findPattern_u8(u8RomBuffer, sig_gbsoundsystem_blitterobj_SSFP_multi_sfx)) {
+    entry = {type: TYPE_MUSIC, name: "GBSoundSystem", version: "Modern"};
+    if (findPattern_u8(u8RomBuffer, sig_gbsoundsystem_modern_SSFP_multi_sfx)) {
         entry_add(entry);
     }
     else {
