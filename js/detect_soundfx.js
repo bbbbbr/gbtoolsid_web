@@ -9,6 +9,7 @@
 // Check for Sound FX drivers
 function check_soundfx(u8RomBuffer) {
 
+    set_memsearch_u8RomBuffer(u8RomBuffer);
     let utf8Encoder = new TextEncoder();
 
     // From "Sliced" 32KB SRAM File (*.sav) into two files (or ROM banks for assembler)
@@ -21,19 +22,38 @@ function check_soundfx(u8RomBuffer) {
 
     // ==== CBT-FX
     // Records can be at any location
+        // constant : https://github.com/datguywitha3ds/CBT-FX/tree/main
         const sig_cbtfx_info = utf8Encoder.encode("CBT-FX BY COFFEEBAT 2021");
+
+    // ==== VAL-FX
+    // Records can be at any location
+        // constant: https://github.com/ISSOtm/val-fx/blob/master/val-fx.asm#L49
+        const sig_valfx_info = utf8Encoder.encode("VAL-FX BY CVB");
+
+    // ==== VGM2GBSFX
+    // Records can be at any location
+        // This may also ID GBStudio 3.1.0+
+        // asm : https://github.com/untoxa/VGM2GBSFX/blob/main/src/gbz80/sfxplayer.c#L61
+        const sig_vgm2gbsfx_aud3waveram_load = new Uint8Array([0x2A, 0x47, 0xE6, 0x07, 0xFE, 0x05, 0x38, 0x5A, 0xFE, 0x07, 0x28, 0x50, 0xAF, 0xEA, 0x1A, 0xFF, 0x0E, 0x30, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C]);
+        // Full version, but prob not needed // {0x2A, 0x47, 0xE6, 0x07, 0xFE, 0x05, 0x38, 0x5A, 0xFE, 0x07, 0x28, 0x50, 0xAF, 0xEA, 0x1A, 0xFF, 0x0E, 0x30, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C, 0x2A, 0xE2, 0x0C};
 
 
     let entry;
 
-    // FXHammer music 1.0
-    entry = {type: TYPE_SOUNDFX, name: "FX Hammer", version: ""};
-    if (findPattern_u8(u8RomBuffer, sig_fxhammer_info_1) ||
-        findPattern_u8(u8RomBuffer, sig_fxhammer_info_2))
+    entry = FORMAT_ENTRY(TYPE_SOUNDFX,"FX Hammer", "");
+    if (FIND_PATTERN_STR_NOTERM(sig_fxhammer_info_1) ||
+        FIND_PATTERN_STR_NOTERM(sig_fxhammer_info_2) )
         entry_add(entry);
 
-    // CBT-FX : https://github.com/datguywitha3ds/CBT-FX/tree/main
-    entry = {type: TYPE_SOUNDFX, name: "CBT-FX", version: ""};
-    if (findPattern_u8(u8RomBuffer, sig_cbtfx_info))
+    entry = FORMAT_ENTRY(TYPE_SOUNDFX,"CBT-FX", "");
+    if (FIND_PATTERN_STR_NOTERM(sig_cbtfx_info))
+        entry_add(entry);
+
+    entry = FORMAT_ENTRY(TYPE_SOUNDFX,"VAL-FX", "");
+    if (FIND_PATTERN_STR_NOTERM(sig_valfx_info))
+        entry_add(entry);
+
+    entry = FORMAT_ENTRY(TYPE_SOUNDFX,"VGM2GBSFX", "");
+    if (FIND_PATTERN_BUF(sig_vgm2gbsfx_aud3waveram_load))
         entry_add(entry);
 }

@@ -2,6 +2,7 @@
 // For more information, please refer to <https://unlicense.org>
 // bbbbbr 2020
 
+var memsearch_u8RomBuffer;
 
 // Compare two memory buffers at given adddress offsets for [length]
 //
@@ -51,7 +52,7 @@ function checkPatternAtAddr_u8(u8DataBuf, u8PatternBuf, index) {
 //
 function findPattern_u8(u8DataBuf, u8PatternBuf) {
 
-    if ((u8DataBuf.length === 0) || 
+    if ((u8DataBuf.length === 0) ||
         (u8PatternBuf.length === 0)  ||
         (u8PatternBuf.length > u8DataBuf.length))
         return false;
@@ -72,5 +73,23 @@ function findPattern_u8(u8DataBuf, u8PatternBuf) {
             }
     }
 
-    return false; 
+    return false;
 }
+
+// To avoid having to pass the buffer in for each search,
+// allow calling function to set a local version.
+function set_memsearch_u8RomBuffer(u8RomBuffer) {
+    memsearch_u8RomBuffer = u8RomBuffer;
+}
+
+// For code copy & paste compat between C version and JS version
+function FIND_PATTERN_BUF(u8PatternBuf) {
+    return findPattern_u8(memsearch_u8RomBuffer, u8PatternBuf);
+}
+function FIND_PATTERN_STR_NOTERM(u8PatternBuf) {
+    return findPattern_u8(memsearch_u8RomBuffer, u8PatternBuf);
+}
+function FORMAT_ENTRY(e_type, e_name, e_version) {
+    return {type: e_type, name: e_name, version: e_version};
+}
+
