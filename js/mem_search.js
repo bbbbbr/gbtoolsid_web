@@ -86,10 +86,16 @@ function set_memsearch_u8RomBuffer(u8RomBuffer) {
 function FIND_PATTERN_BUF(u8PatternBuf) {
     return findPattern_u8(memsearch_u8RomBuffer, u8PatternBuf);
 }
+
 function FIND_PATTERN_STR_NOTERM(u8PatternBuf) {
     return findPattern_u8(memsearch_u8RomBuffer, u8PatternBuf);
 }
+
 function FORMAT_ENTRY(e_type, e_name, e_version) {
     return {type: e_type, name: e_name, version: e_version};
 }
 
+// For code copy & paste compat between C version and JS version
+function CHECK_PATTERN_AT_ADDR(u8PatternBuf, check_addr) {
+    return checkPatternAtAddr_u8(memsearch_u8RomBuffer, u8PatternBuf, check_addr);
+}

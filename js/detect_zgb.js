@@ -43,23 +43,28 @@
 //
 function checkZGB(u8RomBuffer) {
 
-    var entry = {type: TYPE_ENGINE, name: "ZGB", version: ""};
+    set_memsearch_u8RomBuffer(u8RomBuffer);
+    let entry;
+
+    // ================== Copy & Paste can start here ==================
+
+    entry = FORMAT_ENTRY(TYPE_ENGINE, "ZGB", "");
 
     // Exception to the rule: The Squire fails this due to removing ZGB default sound consts
     // https://freshdeus.itch.io/the-squire-gameboy
     // So the requirement is relaxed for versions after 2020.0 which have additional tests
     //
     // Require sound const pattern, as starting filter
-    if (findPattern_u8(u8RomBuffer, sig_zgb_sound)) {
+    if (FIND_PATTERN_BUF(sig_zgb_sound)) {
 
-        if (findPattern_u8(u8RomBuffer, sig_zgb_2017)) {
+        if (FIND_PATTERN_BUF(sig_zgb_2017)) {
             entry_add_with_version(entry, "2016-2017");
             return true;
         }
 
         // ZGB 2020.0
-        if ((findPattern_u8(u8RomBuffer, sig_zgb_2020_0_pushbank)) &&
-            (findPattern_u8(u8RomBuffer, sig_zgb_2020_0_popbank))) {
+        if ((FIND_PATTERN_BUF(sig_zgb_2020_0_pushbank)) &&
+            (FIND_PATTERN_BUF(sig_zgb_2020_0_popbank))) {
 
             entry_add_with_version(entry, "2020.0");
             return true;
@@ -67,18 +72,18 @@ function checkZGB(u8RomBuffer) {
     }
 
     // ZGB 2020.1
-    if ((findPattern_u8(u8RomBuffer, sig_zgb_2020_1_plus_pushbank)) &&
-        (findPattern_u8(u8RomBuffer, sig_zgb_2020_1_plus_popbank))) {
+    if ((FIND_PATTERN_BUF(sig_zgb_2020_1_plus_pushbank)) &&
+        (FIND_PATTERN_BUF(sig_zgb_2020_1_plus_popbank))) {
 
-        if (findPattern_u8(u8RomBuffer, sig_zgb_2020_1_settile)) {
+        if (FIND_PATTERN_BUF(sig_zgb_2020_1_settile)) {
             entry_add_with_version(entry, "2020.1");
             return true;
         }
-        else if (findPattern_u8(u8RomBuffer, sig_zgb_2020_2_plus_settile)) {
+        else if (FIND_PATTERN_BUF(sig_zgb_2020_2_plus_settile)) {
 
             // v2020.2 - gbdk 2020 v3.1.1 - Jun 5, 2020
             // Use sig for: GBDK 2.x - GBDK-2020 3.2.0
-            if (checkPatternAtAddr_u8(u8RomBuffer, sig_zgb_gbdk_bmp, sig_zgb_gbdk_bmp_2x_to_2020_320_at)) {
+            if (CHECK_PATTERN_AT_ADDR(sig_zgb_gbdk_bmp, sig_zgb_gbdk_bmp_2x_to_2020_320_at)) {
                 entry_add_with_version(entry, "2020.2");
                 return true;
             }
@@ -88,7 +93,7 @@ function checkZGB(u8RomBuffer) {
             // const uint8_t sig_gbdk_0x150[] = {0xF3, 0x57, 0xAF, 0x31};
             // const uint32_t sig_gbdk_0x150_GBDK_2020_401_to_402_at  = 0x0153;
             //
-            if (findPattern_u8(u8RomBuffer, sig_zgb_2021_0_flushoamsprite)) {
+            if (FIND_PATTERN_BUF(sig_zgb_2021_0_flushoamsprite)) {
                 entry_add_with_version(entry, "2021.0");
                 return true;
             }
@@ -97,7 +102,7 @@ function checkZGB(u8RomBuffer) {
 
 
                 // 2021.2+
-                if (findPattern_u8(u8RomBuffer, sig_zgb_2021_2_plus_update_attr)) {
+                if (FIND_PATTERN_BUF(sig_zgb_2021_2_plus_update_attr)) {
                     // entry_check_match() Relies on GBDK tool check being run before ZGB is tested (it is)
 
                     // Not sure whether there is a discernable 2021.2 and 2021.3 division
@@ -106,6 +111,11 @@ function checkZGB(u8RomBuffer) {
                     if (entry_check_match(TYPE_TOOLS, STR_GBDK, STR_GBDK_2020_4_0_5_v0_zgb) ||
                         entry_check_match(TYPE_TOOLS, STR_GBDK, STR_GBDK_2020_4_0_5_v1_retracted)) {
                         entry_add_with_version(entry, "2021.2 - 2021.3");
+                        return true;
+                    }
+                    // 2022.2 uses GBDK 4.1.0
+                    if (entry_check_match(TYPE_TOOLS, STR_GBDK, STR_GBDK_2020_4_1_0_plus)) {
+                        entry_add_with_version(entry, "2022.0+");
                         return true;
                     }
                 }
