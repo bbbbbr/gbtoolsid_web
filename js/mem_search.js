@@ -109,11 +109,13 @@ function set_memsearch_u8RomBuffer(u8RomBuffer) {
 
 
 function window_add_property(prop_name, prop_value){
-  Object.defineProperty(window, prop_name, {
-    value: prop_value,
-    configurable: false,
-    writable: false
-  });
+  if (! window.hasOwnProperty(prop_name)) {
+    Object.defineProperty(window, prop_name, {
+        value: prop_value,
+        configurable: false,
+        writable: false
+    });
+  }
 }
 
 function DEF_PATTERN_STR(varname, str_content) {
