@@ -71,6 +71,8 @@ function findPattern_u8(u8DataBuf, u8PatternBuf) {
                 if (i >= u8PatternBuf.length) return true;
                 if (c >= maxLength) return false;
             }
+            // If pattern match failed then rewind by current amount matched (if no match then 0, no change)
+            c -= i;
     }
 
     return false;
