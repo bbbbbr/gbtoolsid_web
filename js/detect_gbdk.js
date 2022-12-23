@@ -18,8 +18,11 @@
     const sig_gbdk_0x20_at = 0x0020;
     // First Entry is ambiguous, must be combined
     //const sig_gbdk_0x20_GBDK_2x_to_2020_320 = new Uint8Array([0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]);
-    const sig_gbdk_0x20_GBDK_2020_400 = new Uint8Array([0xE9, 0xFF, 0xFF, 0xFF]);
-    const sig_gbdk_0x20_GBDK_2020_401_plus = new Uint8Array([0xE9, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x22, 0x0D, 0x20, 0xFC, 0xC9, 0xFF, 0xFF, 0xFF]);
+    const sig_gbdk_0x20_GBDK_2020_400_0x20 = new Uint8Array([0xE9]); //, 0xFF, 0xFF, 0xFF]);
+    const sig_gbdk_0x20_GBDK_2020_401_plus_0x20 = new Uint8Array([0xE9]); // , 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]);
+// 0x28
+    const sig_gbdk_0x28_at = 0x0028;
+    const sig_gbdk_0x20_GBDK_2020_401_plus_0x28 = new Uint8Array([0x22, 0x0D, 0x20, 0xFC, 0xC9]); // , 0xFF, 0xFF, 0xFF]);
 // 0x30
     const sig_gbdk_0x30_at = 0x0030;
     // First Entry is ambiguous, must be combined
@@ -80,7 +83,7 @@ function checkGBDK(u8RomBuffer) {
     // GBDK-2020 4.0.0
     if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x80_GBDK_4_0_0, sig_gbdk_0x80_at)) {
         // GBDK-2020 4.0.0 (Additional test to strengthen match)
-        if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x20_GBDK_2020_400, sig_gbdk_0x20_at)) {
+        if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x20_GBDK_2020_400_0x20, sig_gbdk_0x20_at)) {
             entry_add_with_version(entry, STR_GBDK_2020_4_0_0);
             return true;
         }
@@ -94,7 +97,8 @@ function checkGBDK(u8RomBuffer) {
 
 
     // GBDK-2020 4.0.1 and later
-    if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x20_GBDK_2020_401_plus, sig_gbdk_0x20_at)) {
+    if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x20_GBDK_2020_401_plus_0x20, sig_gbdk_0x20_at) &&
+        checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x20_GBDK_2020_401_plus_0x28, sig_gbdk_0x28_at)) {
 
         // GBDK-2020 4.0.1 and later (Additional test to strengthen match)
         if (checkPatternAtAddr_u8(u8RomBuffer, sig_gbdk_0x30_GBDK_2020_401_plus, sig_gbdk_0x30_at)) {
