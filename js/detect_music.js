@@ -54,6 +54,7 @@ function check_music(u8RomBuffer) {
         let sig_gbmc_snd_exec_modv = "sig_gbmc_snd_exec_modv";
         let sig_audio_arts_term_1 = "sig_audio_arts_term_1";
         let sig_audio_arts_term_2 = "sig_audio_arts_term_2";
+        let sig_audio_arts_ch2 = "sig_audio_arts_ch2";
 
     // ==== Various
     // Records can be at any location
@@ -183,8 +184,10 @@ function check_music(u8RomBuffer) {
         // Tip via Coffee Bat
         // Audio Arts (Allister Brimble, Will Davis)
         // After music / driver data: "0x.1..2v.3S.4!.5..6..7$.8h.9" .. then .. "== THE END =="
-        DEF_PATTERN_STR(sig_audio_arts_term_1, "-- THE END --");
-        DEF_PATTERN_BUF(sig_audio_arts_term_2, AR_ARGS(0x30, 0x78, 0x01, 0x31, 0x88, 0x01, 0x32, 0x76, 0x01, 0x33, 0x53, 0x01, 0x34, 0x21, 0x01, 0x35, 0x00, 0x01, 0x36, 0x01, 0x01, 0x37, 0x24, 0x01, 0x38, 0x68, 0x01, 0x39));
+        // DEF_PATTERN_STR(sig_audio_arts_term_1, "-- THE END --");
+        // DEF_PATTERN_BUF(sig_audio_arts_term_2, AR_ARGS(0x30, 0x78, 0x01, 0x31, 0x88, 0x01, 0x32, 0x76, 0x01, 0x33, 0x53, 0x01, 0x34, 0x21, 0x01, 0x35, 0x00, 0x01, 0x36, 0x01, 0x01, 0x37, 0x24, 0x01, 0x38, 0x68, 0x01, 0x39));
+        // Driver channel 2 update code, captures a wider set of titles
+        DEF_PATTERN_BUF(sig_audio_arts_ch2, AR_ARGS(0xE0, 0x17, 0x3E, 0x80, 0xE0, 0x19, 0x2C, 0x2A, 0xE0, 0x16, 0x5D, 0x54, 0x2C, 0x2A, 0x66, 0x6F, 0x1A, 0x3D, 0x20, 0x0B, 0x23, 0x23, 0x2A, 0xFE, 0x00));
 
     }
 
@@ -300,8 +303,7 @@ function check_music(u8RomBuffer) {
 
     // Audio Arts
     entry = FORMAT_ENTRY(TYPE_MUSIC,"Audio Arts", "");
-    if (FIND_PATTERN_STR_NOTERM(sig_audio_arts_term_1))
-        if (FIND_PATTERN_STR_NOTERM(sig_audio_arts_term_2))
-            entry_add(entry);
+    if (FIND_PATTERN_STR_NOTERM(sig_audio_arts_ch2))
+        entry_add(entry);
 
 }
