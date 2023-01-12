@@ -55,6 +55,7 @@ function check_music(u8RomBuffer) {
         let sig_audio_arts_term_1 = "sig_audio_arts_term_1";
         let sig_audio_arts_term_2 = "sig_audio_arts_term_2";
         let sig_audio_arts_ch2 = "sig_audio_arts_ch2";
+        let sig_imedgboy = "sig_imedgboy";
 
     // ==== Various
     // Records can be at any location
@@ -189,6 +190,26 @@ function check_music(u8RomBuffer) {
         // Driver channel 2 update code, captures a wider set of titles
         DEF_PATTERN_BUF(sig_audio_arts_ch2, AR_ARGS(0xE0, 0x17, 0x3E, 0x80, 0xE0, 0x19, 0x2C, 0x2A, 0xE0, 0x16, 0x5D, 0x54, 0x2C, 0x2A, 0x66, 0x6F, 0x1A, 0x3D, 0x20, 0x0B, 0x23, 0x23, 0x2A, 0xFE, 0x00));
 
+        // Tip via Coffee Bat
+        // IMEDGBOY FILE HEADER
+        //
+        // All pointers are relative to the start of the file (Aka the identifier string) like a binary file.
+        //
+        // Offset Size Description
+        // ====== ==== =========================================
+        //   00    08  Identifier string ("IMEDGBoy")
+        //   08    02  Track table pointer (Table ends with FF)
+        //   0A    01  Total amount of used tracks
+        //   0B    01  Pattern loop offset (Aka which pattern to jump to after loop)
+        //   0C    02  Pointer to Pulse channel patch data
+        //   0E    02  Pointer to Wave channel patch data
+        //   10    02  Pointer to waveform table
+        //   12    02  Pointer to Noise channel patch data
+        //
+        //DEF_PATTERN_STR(sig_imedgboy, "IMEDGBoy");
+        // "IMEDGBoy" with trailing 0x14, 0x00. Track table seems to always be just after the header, so pointer always reads 0x0014
+        DEF_PATTERN_BUF(sig_imedgboy, AR_ARGS(0x49, 0x4D, 0x45, 0x44, 0x47, 0x42, 0x6F, 0x79, 0x14, 0x00));
+
     }
 
     let entry;
@@ -304,6 +325,11 @@ function check_music(u8RomBuffer) {
     // Audio Arts
     entry = FORMAT_ENTRY(TYPE_MUSIC,"Audio Arts", "");
     if (FIND_PATTERN_STR_NOTERM(sig_audio_arts_ch2))
+        entry_add(entry);
+
+    // Audio Arts
+    entry = FORMAT_ENTRY(TYPE_MUSIC,"IMEDGBoy", "");
+    if (FIND_PATTERN_BUF(sig_imedgboy))
         entry_add(entry);
 
 }
