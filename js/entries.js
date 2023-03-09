@@ -9,21 +9,6 @@ const TYPE_MIN     = TYPE_TOOLS;
 const TYPE_MAX     = TYPE_SOUNDFX;
 
 
-
-// Tool
-const STR_GBDK = "GBDK";
-// Versions
-const STR_GBDK_2_x_to_2020_3_2_0       = "2.x - 2020.3.2.0";
-const STR_GBDK_2020_4_0_0              = "2020.4.0.0";
-const STR_GBDK_2020_4_0_1_to_4_0_2     = "2020.4.0.1 - 2020.4.0.2";
-const STR_GBDK_2020_4_0_3              = "2020.4.0.3";
-const STR_GBDK_2020_4_0_4              = "2020.4.0.4";
-const STR_GBDK_2020_4_0_5_v0_zgb       = "2020.4.0.5.v0.zgb";
-const STR_GBDK_2020_4_0_5_v1_retracted = "2020.4.0.5.v1.retracted";
-const STR_GBDK_2020_4_0_5_to_4_0_6     = "2020.4.0.5 - 2020.4.0.6";
-const STR_GBDK_2020_4_1_0_plus         = "2020.4.1.0+";
-const STR_GBDK_2020_4_UNKNOWN          = "Unknown";
-
 // var types_found[TYPE_MAX + 1]; TODO
 var cur_entry = 0;
 var tool_entries = new Array();

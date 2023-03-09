@@ -8,6 +8,9 @@
 // Check for Turbo Rascal Syntax Error
 function check_turborascal(u8RomBuffer) {
 
+    set_memsearch_u8RomBuffer(u8RomBuffer);
+    let entry;
+    
     let utf8Encoder = new TextEncoder();
 
     // 0x0134
@@ -15,7 +18,7 @@ function check_turborascal(u8RomBuffer) {
     const sig_turborascal_header_at = 0x0134;
     const sig_turborascal_header = utf8Encoder.encode("TRSE GB");
 
-    let entry = {type: TYPE_TOOLS, name: "Turbo Rascal Syntax Error", version: ""};
-    if (checkPatternAtAddr_u8(u8RomBuffer, sig_turborascal_header, sig_turborascal_header_at))
+    entry = FORMAT_ENTRY(TYPE_TOOLS, "Turbo Rascal Syntax Error", "");
+    if (CHECK_PATTERN_AT_ADDR(sig_turborascal_header, sig_turborascal_header_at))
         entry_add(entry);
 }

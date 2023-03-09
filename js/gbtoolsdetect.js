@@ -14,6 +14,13 @@ function gbToolsDetect(u8RomBuffer, filename) { // , strict_mode) {
     let result_zgb      = false;
     let result_gbstudio = false;
 
+    // Initalizize entry names
+    add_entry_names_gbdk();
+    add_entry_names_music();
+    add_entry_names_soundfx();
+    add_entry_names_gbstudio();
+    add_entry_names_zgb();
+
     // Reset detected results to avoid showing previous data in new output
     reset_entries();
 

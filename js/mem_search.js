@@ -120,11 +120,25 @@ function window_add_property(prop_name, prop_value){
   }
 }
 
+function DEF_NAME_STR(varname, str_content) {
+
+    let utf8Encoder = new TextEncoder();
+    // Equiv example: const STR_GBDK_2_x_to_2020_3_2_0 = "2.x - 2020.3.2.0";
+    window_add_property(varname, str_content);
+}
+
+
 function DEF_PATTERN_STR(varname, str_content) {
 
     let utf8Encoder = new TextEncoder();
     // Equiv example: const sig_str_devsound_lite = utf8Encoder.encode("DevSound Lite");
     window_add_property(varname, utf8Encoder.encode(str_content));
+}
+
+function DEF_PATTERN_ADDR(varname, addr) {
+
+    // Equiv example: let sig_gbdk_0x30_at = "sig_gbdk_0x30_at";
+    window_add_property(varname, addr);
 }
 
 function AR_ARGS() {
