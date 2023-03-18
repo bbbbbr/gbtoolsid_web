@@ -132,7 +132,7 @@ function check_music(u8RomBuffer) {
         entry_add(entry);
 
     entry = FORMAT_ENTRY(TYPE_MUSIC,"Cosmigo", "");
-    if (FIND_PATTERN_BUF(sig_cosmigo1) || FIND_PATTERN_BUF(sig_cosmigo2))
+    if (FIND_PATTERN_BUF(sig_cosmigo3))
         entry_add(entry);
 
     // ==== SHARED CODE WITH C ENDS HERE ====
