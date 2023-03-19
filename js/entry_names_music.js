@@ -2,12 +2,12 @@
 // Add entry names to the global namespace
 // In a separate function so the var defs don't leak out and the global constants created by them can be used instead
 function add_entry_names_music() {
-    
+
     // These definitions are required in order for the C macro conversion to JS functions below to work
     // (C macro requires a NON-quoted string to create the var name, while js requires a string)
     let sig_str_ghx_audio = "sig_str_ghx_audio";
     let sig_str_ghx_sound = "sig_str_ghx_sound";
-    let sig_str_devsound_standard = "sig_str_devsound_standard";
+    let sig_str_devsound_classic = "sig_str_devsound_classic";
     let sig_str_devsound_lite = "sig_str_devsound_lite";
     let sig_str_devsound_x = "sig_str_devsound_x";
     let sig_str_gbmusicplayer_audio = "sig_str_gbmusicplayer_audio";
@@ -60,9 +60,9 @@ function add_entry_names_music() {
     DEF_PATTERN_STR(sig_str_ghx_audio, "GHX Audio Engine");
     DEF_PATTERN_STR(sig_str_ghx_sound, "GHX Sound Engine");
 
-    DEF_PATTERN_STR(sig_str_devsound_standard, "DevSound GB music player");
+    DEF_PATTERN_STR(sig_str_devsound_classic, "DevSound GB music player");
     DEF_PATTERN_STR(sig_str_devsound_lite, "DevSound Lite");
-    DEF_PATTERN_STR(sig_str_devsound_x, "DevSound X sound driver");
+    DEF_PATTERN_STR(sig_str_devsound_x, "DevSound X sound driver by DevEd");
 
     DEF_PATTERN_STR(sig_str_gbmusicplayer_audio, "GB Music Player Copyright VISUAL IMPACT BVBA");
 
