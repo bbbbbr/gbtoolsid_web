@@ -35,6 +35,9 @@ function add_entry_names_music() {
     let sig_blackboxplayer_2 = "sig_blackboxplayer_2";
     let sig_carillon_player_1 = "sig_carillon_player_1";
     let sig_carillon_player_2 = "sig_carillon_player_2";
+    let sig_carillon_player_3 = "sig_carillon_player_3";
+    let sig_carillon_player_4 = "sig_carillon_player_4";
+    let sig_makrillon_1 = "sig_makrillon_1";
     let sig_lemon_wave_default = "sig_lemon_wave_default";
     let sig_gbtplayer_gbt_wave = "sig_gbtplayer_gbt_wave";
     let sig_mplay2 = "sig_mplay2";
@@ -122,6 +125,13 @@ function add_entry_names_music() {
         DEF_PATTERN_STR(sig_carillon_player_1, "CARILLON PLAYER");
         // "CARILLON EDITOR Version 1.2 Free for all non-commercial use (c)2000-2001 Aleksi Eeben";
         DEF_PATTERN_STR(sig_carillon_player_2, "CARILLON EDITOR");
+        // CH2 envelope handling common to Carillon and Makrillon
+        DEF_PATTERN_BUF(sig_carillon_player_3, AR_ARGS(0x47, 0xE6, 0xF0, 0xF6, 0x08, 0xE0, 0x12, 0x78, 0xE6, 0x0F, 0x1D, 0x12, 0x24, 0x2A, 0xCB, 0x2F, 0xCB, 0x18, 0xCB, 0x2F, 0xCB, 0x18, 0x87, 0x67, 0x78, 0xE6, 0xC0));
+            // AUDTERM update slightly distinct to Carillon (This Carillon entry not used at the moment, just the Makrillon variation below)
+            DEF_PATTERN_BUF(sig_carillon_player_4, AR_ARGS(0x7D, 0xCB, 0x37, 0xE6, 0x0F, 0xC6, 0xC0, 0x4F, 0x06, 0x47, 0x0A, 0x47, 0xF0, 0x25, 0xE6, 0xEE, 0xB0, 0xE0, 0x25));
+            // AUDTERM update slightly distinct to Makrillon (vs Carillon above): ld b, $47 -> ld b, $d7
+            DEF_PATTERN_BUF(sig_makrillon_1, AR_ARGS(0x7D, 0xCB, 0x37, 0xE6, 0x0F, 0xC6, 0xC0, 0x4F, 0x06, 0xD7, 0x0A, 0x47, 0xF0, 0x25, 0xE6, 0xEE, 0xB0, 0xE0, 0x25));
+
 
     // PLAYER.asm / LP1.297.c, l_wave / wave[]
     // It's possible this doesn't pick up uses where the default wave instrument has changed
