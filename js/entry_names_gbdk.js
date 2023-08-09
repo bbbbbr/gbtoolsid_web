@@ -2,7 +2,7 @@
 // Add entry names to the global namespace
 // In a separate function so the var defs don't leak out and the global constants created by them can be used instead
 function add_entry_names_gbdk() {
-    
+
     // These definitions are required in order for the C macro conversion to JS functions below to work
     // (C macro requires a NON-quoted string to create the var name, while js requires a string)
 
@@ -18,6 +18,7 @@ function add_entry_names_gbdk() {
     let STR_GBDK_2020_4_0_5_v1_retracted = "STR_GBDK_2020_4_0_5_v1_retracted";
     let STR_GBDK_2020_4_0_5_to_4_0_6     = "STR_GBDK_2020_4_0_5_to_4_0_6";
     let STR_GBDK_2020_4_1_0_to_4_1_1     = "STR_GBDK_2020_4_1_0_to_4_1_1";
+    let STR_GBDK_2020_4_2_0_interim      = "STR_GBDK_2020_4_2_0_interim";
     let STR_GBDK_2020_4_2_0_plus         = "STR_GBDK_2020_4_2_0_plus";
     let STR_GBDK_2020_4_UNKNOWN          = "STR_GBDK_2020_4_UNKNOWN";
 
@@ -53,10 +54,12 @@ function add_entry_names_gbdk() {
     let sig_gbdk_clear_WRAM_tail_GBDK_2020_405_v2_to_406_at = "sig_gbdk_clear_WRAM_tail_GBDK_2020_405_v2_to_406_at";
     let sig_gbdk_clear_WRAM_tail_GBDK_2020_410_plus = "sig_gbdk_clear_WRAM_tail_GBDK_2020_410_plus";
     let sig_gbdk_clear_WRAM_tail_GBDK_2020_410_plus_at = "sig_gbdk_clear_WRAM_tail_GBDK_2020_410_plus_at";
+    let sig_gbdk_clear_WRAM_tail_GBDK_2020_420_plus = "sig_gbdk_clear_WRAM_tail_GBDK_2020_420_plus";
+    let sig_gbdk_clear_WRAM_tail_GBDK_2020_420_plus_at = "sig_gbdk_clear_WRAM_tail_GBDK_2020_420_plus_at";
 
 
     // ==== SHARED CODE WITH C STARTS HERE ====
-    
+
     // These are also used by GBStudio and ZGB
     // Tool
     DEF_NAME_STR(STR_GBDK, "GBDK");
@@ -70,6 +73,7 @@ function add_entry_names_gbdk() {
     DEF_NAME_STR(STR_GBDK_2020_4_0_5_v1_retracted, "2020.4.0.5.v1.retracted");
     DEF_NAME_STR(STR_GBDK_2020_4_0_5_to_4_0_6,     "2020.4.0.5 - 2020.4.0.6");
     DEF_NAME_STR(STR_GBDK_2020_4_1_0_to_4_1_1,     "2020.4.1.0 - 2020.4.1.1");
+    DEF_NAME_STR(STR_GBDK_2020_4_2_0_interim,      "2020.4.2.0 interim");
     DEF_NAME_STR(STR_GBDK_2020_4_2_0_plus,         "2020.4.2.0+");
     DEF_NAME_STR(STR_GBDK_2020_4_UNKNOWN,          "Unknown");
 
@@ -137,15 +141,18 @@ function add_entry_names_gbdk() {
             // DEF_PATTERN_BUF(sig_gbdk_0x00B7_GBDK_2020_410_plus, AR_ARGS(0xAF)); // "xor a".Was [0xD5, 0xAF] (push de, xor a)
             // DEF_PATTERN_ADDR(sig_gbdk_0x00B7_GBDK_2020_410_plus_at, 0x00B7);
         // 4.0.5-v1 crt0.s : had a "JP (HL)" after "_refresh_OAM::" ->  removed in 4.1.0 -> which shifted most of ".clear_WRAM:"
-        DEF_PATTERN_BUF(sig_gbdk_clear_WRAM_tail_GBDK_2020_405_v1, AR_ARGS(0x67, 0xAF, 0x6F, 0x0E, 0xA0, 0xEF, 0xD1, 0xC9));
+        DEF_PATTERN_BUF( sig_gbdk_clear_WRAM_tail_GBDK_2020_405_v1, AR_ARGS(0x67, 0xAF, 0x6F, 0x0E, 0xA0, 0xEF, 0xD1, 0xC9));
         DEF_PATTERN_ADDR(sig_gbdk_clear_WRAM_tail_GBDK_2020_405_v1_at, 0x00C7);
             // Optional extra test for 4.0.5.v1: 0x00B7: 0xE9 (jp hl) -> 4.0.5.v2 / 4.0.6  0x00B7: 0xD5  ("push de" got bumped upward to 0xB7)
         // 4.0.5-v2 / 4.0.5 crt0.s : had a "push de" after ".clear_WRAM:" which shifted everything one byte earlier in ROM
-        DEF_PATTERN_BUF(sig_gbdk_clear_WRAM_tail_GBDK_2020_405_v2_to_406, AR_ARGS(0x67, 0xAF, 0x6F, 0x0E, 0xA0, 0xEF, 0xD1, 0xC9));
+        DEF_PATTERN_BUF( sig_gbdk_clear_WRAM_tail_GBDK_2020_405_v2_to_406, AR_ARGS(0x67, 0xAF, 0x6F, 0x0E, 0xA0, 0xEF, 0xD1, 0xC9));
         DEF_PATTERN_ADDR(sig_gbdk_clear_WRAM_tail_GBDK_2020_405_v2_to_406_at, 0x00C6);
         // 4.1.0+
-        DEF_PATTERN_BUF(sig_gbdk_clear_WRAM_tail_GBDK_2020_410_plus, AR_ARGS(0x67, 0xAF, 0x6F, 0x0E, 0xA0, 0xEF, 0xC9));
+        DEF_PATTERN_BUF( sig_gbdk_clear_WRAM_tail_GBDK_2020_410_plus, AR_ARGS(0x67, 0xAF, 0x6F, 0x0E, 0xA0, 0xEF, 0xC9));
         DEF_PATTERN_ADDR(sig_gbdk_clear_WRAM_tail_GBDK_2020_410_plus_at, 0x00C5);
+        // 4.2.0+
+        DEF_PATTERN_BUF( sig_gbdk_clear_WRAM_tail_GBDK_2020_420_plus, AR_ARGS(0x67, 0xAF, 0x6F, 0x0E, 0xA0, 0xC3, 0x28));
+        DEF_PATTERN_ADDR(sig_gbdk_clear_WRAM_tail_GBDK_2020_420_plus_at, 0x00C4);
 
     // ==== SHARED CODE WITH C ENDS HERE ====
 }
