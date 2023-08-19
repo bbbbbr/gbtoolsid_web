@@ -86,6 +86,11 @@ function checkZGB(u8RomBuffer) {
                         entry_add_with_version(entry, "2022.0+");
                         return true;
                     }
+                    // 2023.0 uses GBDK 4.2.0
+                    if (entry_check_match(TYPE_TOOLS, STR_GBDK, STR_GBDK_2020_4_2_0_plus)) {
+                        entry_add_with_version(entry, "2023.0+");
+                        return true;
+                    }
                 }
                 // 2021.1
                 // Since it's not 2021.2+, can test for 2021.1 using the version shared with 2021.2
@@ -102,6 +107,6 @@ function checkZGB(u8RomBuffer) {
     }
 
     return false;
-    
-   // ==== SHARED CODE WITH C ENDS HERE ====    
+
+   // ==== SHARED CODE WITH C ENDS HERE ====
 }
