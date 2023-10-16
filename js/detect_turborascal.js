@@ -10,7 +10,7 @@ function check_turborascal(u8RomBuffer) {
 
     set_memsearch_u8RomBuffer(u8RomBuffer);
     let entry;
-    
+
     let utf8Encoder = new TextEncoder();
 
     // 0x0134

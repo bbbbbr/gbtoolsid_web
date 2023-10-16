@@ -11,9 +11,9 @@ function check_soundfx(u8RomBuffer) {
 
     set_memsearch_u8RomBuffer(u8RomBuffer);
     let entry;
-    
+
     // ==== SHARED CODE WITH C STARTS HERE ====
-    
+
     entry = FORMAT_ENTRY(TYPE_SOUNDFX,"FX Hammer", "");
     if (FIND_PATTERN_STR_NOTERM(sig_fxhammer_info_1) ||
         FIND_PATTERN_STR_NOTERM(sig_fxhammer_info_2) )

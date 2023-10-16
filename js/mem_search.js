@@ -3,6 +3,11 @@
 // bbbbbr 2020
 
 var memsearch_u8RomBuffer;
+var addr_last_match = 0;
+
+function get_addr_last_match() {
+    return addr_last_match;
+}
 
 // Compare two memory buffers at given adddress offsets for [length]
 //
@@ -60,19 +65,22 @@ function findPattern_u8(u8DataBuf, u8PatternBuf) {
     let maxLength = (u8DataBuf.length - u8PatternBuf.length);
 
     // Loop through search buffer (end index is adjusted down based on pattern length
-    let i;
+    let pat_match_idx;
     for (let c = 0; c < maxLength; c++) {
 
-            i = 0;
+            pat_match_idx = 0;
             // Try to match the whole pattern
-            while (u8DataBuf[c] === u8PatternBuf[i]) {
+            while (u8DataBuf[c] === u8PatternBuf[pat_match_idx]) {
                 c++;
-                i++;
-                if (i >= u8PatternBuf.length) return true;
+                pat_match_idx++;
+                if (pat_match_idx >= u8PatternBuf.length) {
+                    addr_last_match = c - pat_match_idx; // Get stat of match as rom buffer index - match count
+                    return true;
+                }
                 if (c >= maxLength) return false;
             }
             // If pattern match failed then rewind by current amount matched (if no match then 0, no change)
-            c -= i;
+            c -= pat_match_idx;
     }
 
     return false;
@@ -149,4 +157,8 @@ function DEF_PATTERN_BUF(varname, buf_content) {
 
     // Equiv example: const sig_gbsoundsystem_MultiSFXLoop = new Uint8Array([0x2A, 0x4E, 0x06, 0x00, 0x87, 0xCB, 0x10, 0x87, 0xCB, 0x10, 0x87, 0xCB, 0x10]);
     window_add_property(varname, buf_content);
+}
+
+function GET_ADDR_LAST_MATCH() {
+    return get_addr_last_match();
 }

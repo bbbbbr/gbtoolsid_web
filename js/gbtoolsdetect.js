@@ -20,6 +20,8 @@ function gbToolsDetect(u8RomBuffer, filename) { // , strict_mode) {
     add_entry_names_soundfx();
     add_entry_names_gbstudio();
     add_entry_names_zgb();
+    add_entry_names_gbforth();
+    add_entry_names_gbbasic();
 
     // Reset detected results to avoid showing previous data in new output
     reset_entries();
@@ -27,13 +29,15 @@ function gbToolsDetect(u8RomBuffer, filename) { // , strict_mode) {
     result_gbdk = checkGBDK(u8RomBuffer);
 
     // If strict mode is turned on, only test
-    // for ZGB and GBStudio when GBDK is present
+    // for ZGB, GBStudio, GBBasic when GBDK is present
     if ((strict_mode === false) || (result_gbdk === true)) {
         result_zgb      = checkZGB(u8RomBuffer);
         result_gbstudio = checkGBStudio(u8RomBuffer);
+        result_gbstudio = check_gbbasic(u8RomBuffer);
     }
 
     check_turborascal(u8RomBuffer);
+    check_gbforth(u8RomBuffer);
 
     check_music(u8RomBuffer);
     check_soundfx(u8RomBuffer);
