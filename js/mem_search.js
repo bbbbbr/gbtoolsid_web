@@ -26,7 +26,7 @@ function memcmp_at_u8(buf1, addr1, buf2, addr2, compare_length)
     {
         if (bin1[addr1 + i] !== bin2[addr2 + i]) return false;
     }
-
+    addr_last_match = addr1;
     return true;
 }
 
