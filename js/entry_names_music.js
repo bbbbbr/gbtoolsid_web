@@ -24,6 +24,7 @@ function add_entry_names_music() {
     let sig_bin_gbsoundsystem_MultiSFXLoop = "sig_bin_gbsoundsystem_MultiSFXLoop";
     let sig_str_gbsoundsystem_1 = "sig_str_gbsoundsystem_1";
     let sig_str_gbsoundsystem_2 = "sig_str_gbsoundsystem_2";
+    let sig_tonicfur = "sig_tonicfur";
 
     let sig_hugetracker_load_note_data = "sig_hugetracker_load_note_data";
     let sig_hugetracker_load_note_data_v2 = "sig_hugetracker_load_note_data_v2";
@@ -237,6 +238,10 @@ function add_entry_names_music() {
     DEF_PATTERN_BUF(sig_deflemask_romstart, AR_ARGS(0x44, 0x4D, 0x47, 0x42, 0x56, 0x47, 0x4D));
     DEF_PATTERN_ADDR(sig_deflemask_at_0x0001, 0x0001);
     //DEF_PATTERN_STR(sig_deflemask_2, "DeflemaskGBVGM");
+
+    // TonicFur
+    DEF_PATTERN_STR(sig_tonicfur, "TonicFur Audio Engine");
+
 
     // ==== SHARED CODE WITH C ENDS HERE ====
 }
