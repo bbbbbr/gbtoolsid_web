@@ -22,6 +22,7 @@ function gbToolsDetect(u8RomBuffer, filename) { // , strict_mode) {
     add_entry_names_zgb();
     add_entry_names_gbforth();
     add_entry_names_gbbasic();
+    add_entry_names_gbnim();
 
     // Reset detected results to avoid showing previous data in new output
     reset_entries();
@@ -37,8 +38,10 @@ function gbToolsDetect(u8RomBuffer, filename) { // , strict_mode) {
         result_gbstudio = check_gbbasic(u8RomBuffer);
     }
 
+    // Various other toolchains
     check_turborascal(u8RomBuffer);
     check_gbforth(u8RomBuffer);
+    check_gbnim(u8RomBuffer);
 
     check_music(u8RomBuffer);
     check_soundfx(u8RomBuffer);
