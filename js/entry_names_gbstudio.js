@@ -1,7 +1,7 @@
 // Add entry names to the global namespace
 // In a separate function so the var defs don't leak out and the global constants created by them can be used instead
 function add_entry_names_gbstudio() {
-    
+
     // These definitions are required in order for the C macro conversion to JS functions below to work
     // (C macro requires a NON-quoted string to create the var name, while js requires a string)
 
@@ -13,7 +13,8 @@ function add_entry_names_gbstudio() {
     let sig_gbs_uicolors_1_1_0_plus = "sig_gbs_uicolors_1_1_0_plus";
     let sig_gbs_uicolors_2_0_0_beta5_plus = "sig_gbs_uicolors_2_0_0_beta5_plus";
     let sig_gbs_musicmanager_c_FX_ADDR_LO__2_0_0_b5_to_3_0_3 = "sig_gbs_musicmanager_c_FX_ADDR_LO__2_0_0_b5_to_3_0_3";
-    let sig_gbs_fade_manager_c_dmgfadetowhitestep_2_0_0_b5_plus = "sig_gbs_fade_manager_c_dmgfadetowhitestep_2_0_0_b5_plus";
+    let sig_gbs_fade_manager_c_dmgfadetowhitestep_2_0_0_b5_to_3_1_0 = "sig_gbs_fade_manager_c_dmgfadetowhitestep_2_0_0_b5_to_3_1_0";
+    let sig_gbs_fade_manager_c_dmgfadetowhitestep_3_2_0_plus = "sig_gbs_fade_manager_c_dmgfadetowhitestep_3_2_0_plus";
     let sig_gbs_math_c_sinetable_3_0_0_alpha1_plus = "sig_gbs_math_c_sinetable_3_0_0_alpha1_plus";
 
     // ==== SHARED CODE WITH C STARTS HERE ====
@@ -31,13 +32,16 @@ function add_entry_names_gbstudio() {
         // Preliminary Beta 5+ (11/20/2020)
         DEF_PATTERN_BUF(sig_gbs_uicolors_2_0_0_beta5_plus, AR_ARGS(0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x01, 0x03, 0x07, 0x0F, 0x1F));
 
-    // ADDED:Apr 30, 2021 (v2.0.0-beta5) -> REMOVED:Feb 20, 2022 (3.0.3)
+    // ADDED:Apr 30, 2021: v2.0.0-beta5 -> REMOVED:Feb 20, 2022 (3.0.3)
     // const tables:  https://github.com/chrismaltby/gb-studio/blob/aaf89ef51a0c40ce5e8cbc6aa0eefa3f35e3cec8/appData/src/gb/src/core/music_manager.c#L258
     DEF_PATTERN_BUF(sig_gbs_musicmanager_c_FX_ADDR_LO__2_0_0_b5_to_3_0_3, AR_ARGS(0x05,  0x04,  0x05,  0x04,  0x00,  0x10,  0x16,  0x1A,  0x20,  0x00,  0x0E,  0x0D,  0x0B,  0x07 ));
 
-    // ADDED: Mar 28, 2021 (v2.0.0-beta5) - ~~~
+    // ADDED: Mar 28, 2021: v2.0.0-beta5 - v3.1.0
     // inline asm: https://sourcegraph.com/github.com/chrismaltby/gb-studio/-/blob/appData/src/gb/src/core/fade_manager.c?L156
-    DEF_PATTERN_BUF(sig_gbs_fade_manager_c_dmgfadetowhitestep_2_0_0_b5_plus, AR_ARGS(0x3A, 0x5E, 0xB7, 0xC8, 0x57, 0x26, 0x04, 0x7B, 0xE6, 0x03, 0x28, 0x01, 0x3D, 0xCB, 0x3F, 0xCB, 0x1D, 0xCB, 0x3F, 0xCB, 0x1D, 0xCB, 0x3B, 0xCB, 0x3B, 0x25, 0x20, 0xEB, 0x5D, 0x15, 0x20, 0xE5, 0xC9));
+    DEF_PATTERN_BUF(sig_gbs_fade_manager_c_dmgfadetowhitestep_2_0_0_b5_to_3_1_0, AR_ARGS(0x3A, 0x5E, 0xB7, 0xC8, 0x57, 0x26, 0x04, 0x7B, 0xE6, 0x03, 0x28, 0x01, 0x3D, 0xCB, 0x3F, 0xCB, 0x1D, 0xCB, 0x3F, 0xCB, 0x1D, 0xCB, 0x3B, 0xCB, 0x3B, 0x25, 0x20, 0xEB, 0x5D, 0x15, 0x20, 0xE5, 0xC9));
+    // UPDATED: June 14, 2023: v3.2.0 - X
+    DEF_PATTERN_BUF(sig_gbs_fade_manager_c_dmgfadetowhitestep_3_2_0_plus, AR_ARGS(0xB7, 0x28, 0x1C, 0x57, 0x26, 0x04, 0x7B, 0xE6, 0x03, 0x28, 0x01, 0x3D, 0xCB, 0x3F, 0xCB, 0x1D, 0xCB, 0x3F, 0xCB, 0x1D, 0xCB, 0x3B, 0xCB, 0x3B, 0x25, 0x20, 0xEB, 0x5D, 0x15, 0x20, 0xE5, 0x7B, 0xC9));
+
 
     // ADDED: Preliminary 3.0 Alpha 1+ (03/08/2021) - ~~~
     // const table: https://github.com/chrismaltby/gb-studio/blame/d045e345be310314ccc4f371a7d5370cae702d3e/appData/src/gb/src/core/math.c
@@ -45,6 +49,6 @@ function add_entry_names_gbstudio() {
 
     //TODO: See SFX: sig_vgm2gbsfx_aud3waveram_load[] for GBStudio 3.1.0+ (not confirmed present for all)
 
-
     // ==== SHARED CODE WITH C ENDS HERE ====
+
 }

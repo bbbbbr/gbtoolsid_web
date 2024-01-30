@@ -26,6 +26,7 @@ function gbToolsDetect(u8RomBuffer, filename) { // , strict_mode) {
     // Reset detected results to avoid showing previous data in new output
     reset_entries();
 
+    // Note: GBStudio entry_check_match() relies on GBDK tool check being run here before ZGB is tested
     result_gbdk = checkGBDK(u8RomBuffer);
 
     // If strict mode is turned on, only test
