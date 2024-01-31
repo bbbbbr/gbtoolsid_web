@@ -18,6 +18,9 @@ function check_gbnim(u8RomBuffer) {
             entry_add(entry);
         }
     }
+    else if (FIND_PATTERN_STR_NOTERM(sig_gbnim_exception_handle_string)) {
+            entry_add(entry);
+    }
 
     // ==== SHARED CODE WITH C ENDS HERE ====
 }
