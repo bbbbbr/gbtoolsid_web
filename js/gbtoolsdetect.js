@@ -13,6 +13,7 @@ function gbToolsDetect(u8RomBuffer, filename) { // , strict_mode) {
     let result_gbdk     = false;
     let result_zgb      = false;
     let result_gbstudio = false;
+    let result_gbbasic  = false;
 
     // Initalizize entry names
     add_entry_names_gbdk();
@@ -35,7 +36,7 @@ function gbToolsDetect(u8RomBuffer, filename) { // , strict_mode) {
     if ((strict_mode === false) || (result_gbdk === true)) {
         result_zgb      = checkZGB(u8RomBuffer);
         result_gbstudio = checkGBStudio(u8RomBuffer);
-        result_gbstudio = check_gbbasic(u8RomBuffer);
+        result_gbbasic  = check_gbbasic(u8RomBuffer);
     }
 
     // Various other toolchains

@@ -6,15 +6,17 @@ function add_entry_names_gbbasic() {
     // These definitions are required in order for the C macro conversion to JS functions below to work
     // (C macro requires a NON-quoted string to create the var name, while js requires a string)
 
-    let sig_gbbasic_actor_init_alpha3 = "sig_gbbasic_actor_init_alpha3";
+    let sig_gbbasic_actor_init = "sig_gbbasic_actor_init";
     let sig_gbbasic_actor_init_alpha3_at = "sig_gbbasic_actor_init_alpha3_at";
+    let sig_gbbasic_actor_init_alpha4_at = "sig_gbbasic_actor_init_alpha4_at";
 
     // ==== SHARED CODE WITH C STARTS HERE ====
 
     // ==== GBBasic ====
     //
-    DEF_PATTERN_BUF(sig_gbbasic_actor_init_alpha3, AR_ARGS(0x00, 0x19, 0xE5, 0x7D, 0xF8, 0x04, 0x77, 0xE1, 0x7C, 0xF8, 0x03, 0x32, 0x2A, 0x66, 0x6F, 0xAF, 0x22, 0x77, 0xE1, 0xE5, 0xAF, 0x22, 0x77, 0xF8, 0x02, 0x2A, 0x5F, 0x56));
+    DEF_PATTERN_BUF(sig_gbbasic_actor_init, AR_ARGS(0x00, 0x19, 0xE5, 0x7D, 0xF8, 0x04, 0x77, 0xE1, 0x7C, 0xF8, 0x03, 0x32, 0x2A, 0x66, 0x6F, 0xAF, 0x22, 0x77, 0xE1, 0xE5, 0xAF, 0x22, 0x77, 0xF8, 0x02, 0x2A, 0x5F, 0x56));
     DEF_PATTERN_ADDR(sig_gbbasic_actor_init_alpha3_at, 0x861A); // Bank 2: 0x461A
+    DEF_PATTERN_ADDR(sig_gbbasic_actor_init_alpha4_at, 0x83C3); // Bank 2: 0x43C3
 
     // ==== GBBASIC
     // https://github.com/gbbasic/prototype
