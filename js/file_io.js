@@ -1,7 +1,6 @@
 // This is free and unencumbered software released into the public domain.
 // For more information, please refer to <https://unlicense.org>
-// bbbbbr 2020
-
+// bbbbbr 2025
 
 
 // Load a file into a uint8 binary array
@@ -12,23 +11,14 @@ function loadFile(fileToRead) {
 
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         let fileReader = new FileReader();
-
-        fileReader.onload = function (e) {
-                 let fileBuffer = e.target.result;
-                 let uint8View = new Uint8Array(fileBuffer)
-                 gbToolsDetect(uint8View, fileToRead.name);
-             }
-
+        fileReader.argFilename = fileToRead.name; // Attach filename as custom property to event caller
+        fileReader.addEventListener("load", invokeProgram);
         fileReader.readAsArrayBuffer(fileToRead);
     }
 }
 
 
 function dropFileHandler(ev) {
-
-    // Clear previous output
-    // setInfoText("\n");
-    prependInfoText("---------------------------------\n");
 
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault();
@@ -54,7 +44,6 @@ function dropFileHandler(ev) {
     // Clear the drag-and-drop style highlight
     removeClass(this, "dragdrop_ready");
 }
-
 
 
 function dragOverHandler(ev) {
