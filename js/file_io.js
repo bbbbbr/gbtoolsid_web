@@ -18,6 +18,14 @@ function loadFile(fileToRead) {
 }
 
 
+function buttonLoadFile(e) {
+
+    // Load the files
+    for (var i = 0; i < this.files.length; i++) {
+        loadFile( this.files[i] );
+    }
+}
+
 function dropFileHandler(ev) {
 
     // Prevent default behavior (Prevent file from being opened)
